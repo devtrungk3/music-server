@@ -21,7 +21,7 @@ const generateRefreshToken = (payload) => {
         {...payload},
         process.env.SECRET_REFRESH_KEY,
         {
-            expiresIn: '12h',
+            expiresIn: '24h',
         }
     );
 }

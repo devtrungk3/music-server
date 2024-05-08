@@ -41,8 +41,16 @@ const userSignupController = asyncHandler(async (req, res) => {
         email: user.email,
         role: user.role    
     });
-
-    res.json({accessToken, refreshToken});
+    
+    /**
+     * set the refresh token in the cookies of the response object with an expiry of 24 hours 
+     * and send the response back to the client with the refresh token in the cookies
+     */
+    res
+        .cookie('refreshToken', refreshToken, {
+            expires: new Date(new Date().getTime() + 60 * 60 * 24 * 1000)
+        })
+        .json({accessToken});
     
 });
 
