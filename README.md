@@ -86,7 +86,7 @@ Login
 ```http
 POST /auth/login
 ```
-```json
+```javascript
 Request
     body: {
         "username": username,
@@ -104,7 +104,7 @@ Signup
 ```http
 POST /auth/signup
 ```
-```json
+```javascript
 Request
     body: {
         "username": username,
@@ -124,7 +124,7 @@ Refresh token
 ```http
 GET /auth/refresh
 ```
-```json
+```javascript
 Request
     headers:
         cookie: {
@@ -140,7 +140,7 @@ Get all songs
 ```http
 GET /songs
 ```
-```json
+```javascript
 Response
     body: {
         "songs": [
@@ -157,7 +157,7 @@ Get song by id
 ```http
 GET /songs/{id}
 ```
-```json
+```javascript
 Response
     body: {
         "song": song_info,
@@ -202,7 +202,7 @@ Get songs belongs to artist
 ```http
 GET /artists/{id}/songs
 ```
-```json
+```javascript
 Response
     body: {
         "artist": artist_info,
@@ -254,7 +254,7 @@ Add new song into favorite list
 ```http
 POST /favorites
 ```
-```json
+```javascript
 Request
     body: {
         "songId": songId,
@@ -269,7 +269,7 @@ Get all playlists of user
 ```http
 GET /playlists
 ```
-```json
+```javascript
 Request
     headers: 
         authorization: "Bearer token"
@@ -282,7 +282,7 @@ Create new playlist
 ```http
 POST /playlists
 ```
-```json
+```javascript
 Request
     body: {
         "title": title,
@@ -297,7 +297,7 @@ Add song into playlist
 ```http
 POST /playlists/{id}
 ```
-```json
+```javascript
 Request
     body: {
         "songId": songId,
@@ -323,7 +323,7 @@ Remove song from playlist
 ```http
 DELETE /playlists/{id}/song
 ```
-```json
+```javascript
 Request
     body: {
         "songId": songId
