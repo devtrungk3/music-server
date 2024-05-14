@@ -92,7 +92,7 @@ exports.getGenreSongs = asyncHandler(async (req, res) => {
         }
     });
     res.json({
-        ...genre.dataValues,
+        genre,
         songs,
         page: page,
         page_size: limit,

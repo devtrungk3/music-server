@@ -91,7 +91,7 @@ exports.getPlaylistSongById = asyncHandler(async (req, res) => {
     });
 
     res.json({
-        ...playlist.dataValues,
+        playlist,
         songs,
         page: page,
         page_size: limit,
@@ -109,7 +109,7 @@ exports.createPlaylist = asyncHandler(async (req, res) => {
         userId: req.user.username,
     });
     await playlist.save();
-    res.json({ error: 'playlist created successfully' });
+    res.json({ success: 'playlist created successfully' });
 });
 
 /**
@@ -120,7 +120,7 @@ exports.addPlaylistSong = asyncHandler(async (req, res) => {
         where: { playlistId: req.params.id, songId: req.body.songId }
     });
 
-    if (exists) return res.status(400).json({ error: 'This song already exists in playlist' });
+    if (exists) return res.status(400).json({ error: 'this song already exists in playlist' });
 
     await PlaylistSong.create({
         playlistId: req.params.id,
@@ -147,12 +147,12 @@ exports.deletePlaylistById = asyncHandler(async (req, res) => {
     const exists = await Playlist.count({
         where: { id: req.params.id, userId: req.user.username }
     });
-    if (!exists) return res.status(400).json({ error: 'This playlist does not exists' });
+    if (!exists) return res.status(400).json({ error: 'this playlist does not exists' });
 
     await Playlist.destroy({
         where: { id: req.params.id, userId: req.user.username }
     });
-    res.json({ success: 'Playlist deleted successfully' });
+    res.json({ success: 'playlist deleted successfully' });
 });
 
 /**
@@ -168,10 +168,10 @@ exports.deletePLaylistSong = asyncHandler(async (req, res) => {
             }
         }
     });
-    if (!exists) return res.status(400).json({ error: 'Song does not exists' });
+    if (!exists) return res.status(400).json({ error: 'song does not exists' });
 
     await PlaylistSong.destroy({
         where: { playlistId: req.params.id, songId: req.body.songId }
     });
-    res.json({ success: 'Song removed successfully'});
+    res.json({ success: 'song removed successfully'});
 });

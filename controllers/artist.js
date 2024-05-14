@@ -71,7 +71,7 @@ exports.getArtistSongs = asyncHandler(async (req, res) => {
         },
     });
     res.json({
-        ...artist.dataValues,
+        artist,
         songs,
         page: page,
         page_size: limit,

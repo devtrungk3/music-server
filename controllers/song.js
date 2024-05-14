@@ -57,7 +57,7 @@ exports.getSongById = asyncHandler(async (req, res) => {
         }   
     });
     res.json({
-        ...song.dataValues,
+        song,
         artists: artists,
         genres: genres
     });
