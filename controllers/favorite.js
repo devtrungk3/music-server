@@ -21,7 +21,7 @@ exports.getSongs = asyncHandler(async (req, res) => {
         include: {
             model: Favorite,
             attributes: [],
-            where: { userId: req.user.username },
+            where: { userId: req.user.id },
         },
         order: [[Favorite, 'createdAt', 'DESC']],
     });
@@ -54,7 +54,7 @@ exports.getSongs = asyncHandler(async (req, res) => {
         include: {
             model: Favorite,
             attributes: [],
-            where: { userId: req.user.username },
+            where: { userId: req.user.id },
         },
     });
 
@@ -73,11 +73,11 @@ exports.addSongById = asyncHandler(async (req, res) => {
     const songId = req.body.songId;
 
     const exists = await Favorite.count({
-        where: { userId: req.user.username, songId: songId }
+        where: { userId: req.user.id, songId: songId }
     });
     if (exists) return res.status(400).json('This song already favorited');
 
-    await Favorite.create({userId: req.user.username, songId: songId});
+    await Favorite.create({userId: req.user.id, songId: songId});
 
     res.json('Added song into favorite list');
 });
@@ -89,13 +89,13 @@ exports.removeSongById = asyncHandler(async (req, res) => {
     const songId = req.params.songId;
 
     const exists = await Favorite.count({
-        where: { userId: req.user.username, songId: songId }
+        where: { userId: req.user.id, songId: songId }
     });
     if (!exists) return res.status(400).json({ error: 'This song does not exists in favorite list' });
     
     await Favorite.destroy({
         where: {
-            userId: req.user.username,
+            userId: req.user.id,
             songId: songId,
         }
     });

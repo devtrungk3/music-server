@@ -9,7 +9,7 @@ const userLoginController = asyncHandler(async (req, res) => {
      */
     const user = await User.findOne({
         where: { username, password },
-        attributes: ['username', 'password', 'email', 'role'],
+        attributes: ['id','username', 'password', 'email', 'role'],
     });
     /**
      * check wrong credentials
@@ -22,11 +22,13 @@ const userLoginController = asyncHandler(async (req, res) => {
      * create new access and refresh token using credentials
      */
     const accessToken = jwtUtil.generateAccessToken({
+        id: user.id,
         username: user.username,
         email: user.email,
         role: user.role
     });
     const refreshToken = jwtUtil.generateRefreshToken({
+        id: user.id,
         username: user.username,
         email: user.email,
         role: user.role    

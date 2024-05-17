@@ -15,7 +15,7 @@ const Playlist = sequelize.define('Playlist', {
         allowNull: true,
     },
     userId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
 }, {

@@ -32,7 +32,7 @@ const signupValidation = (req, res, next) => {
     if (!/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/.test(password)) {
         errors.push({ field: 'password', message: 'password must follow specified format a-z, A-Z, 0-9, !@#$%^&*()_+=-.' });
     }
-    if (!/^[a-zA-Z]+$/.test(fullname)) {
+    if (!/^[a-zA-Z\s]+$/.test(fullname)) {
         errors.push({ field: 'fullname', message: 'fullname cannot use special characters or numbers' });
     }
     if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {

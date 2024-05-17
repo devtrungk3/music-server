@@ -5,7 +5,7 @@ const User = require('./user');
 const Song = require('./song');
 const Favorite = sequelize.define('Favorite', {
     userId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         primaryKey: true,
     },
     songId: {

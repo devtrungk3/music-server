@@ -20,7 +20,7 @@ const userSignupController = asyncHandler(async (req, res) => {
     /**
      * insert new records into users table
      */
-    const user = await User.create({
+    await User.create({
         username,
         password,
         fullname,
@@ -28,15 +28,22 @@ const userSignupController = asyncHandler(async (req, res) => {
         role,
     });
 
+    const user = await User.findOne({
+        where: { username },
+        attributes: ['id','username', 'email', 'role'],
+    });
+
     /**
      * create new access and refresh token using credentials
      */
     const accessToken = jwtUtil.generateAccessToken({
+        id: user.id,
         username: user.username,
         email: user.email,
         role: user.role
     });
     const refreshToken = jwtUtil.generateRefreshToken({
+        id: user.id,
         username: user.username,
         email: user.email,
         role: user.role    

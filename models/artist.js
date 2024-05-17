@@ -10,13 +10,13 @@ const Artist = sequelize.define('Artist', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    origin: {
-        type: DataTypes.STRING,
-        allowNull: true,
+    gender: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
-    bio: {
+    nationality: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
     },
     image: {
         type: DataTypes.STRING,

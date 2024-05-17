@@ -1,84 +1,85 @@
 # Database structure
 #### Users table
-|Column|Description|
-|-|-|
-|username|Primary key|
-|password||
-|fullname||
-|email|unique|
-|role||
-|createdAt||
-|updatedAt||
+|Column|Data type|Allow null|Description|
+|-|-|-|-|
+|id|Integer|No|Primary key, auto increment|
+|username|String|No|Unique|
+|password|String|No||
+|fullname|String|No||
+|email|String|No|Unique|
+|role|String|No||
+|createdAt|Timestamp|No||
+|updatedAt|Timestamp|Yes||
 
 #### Songs table
-|Column|Description|
-|-|-|
-|id|Primary key, auto increment|
-|title||
-|released_year||
-|audio|Path to audio file of song|
-|image|Path to image file of song|
-|mode|Mode of the song (major or minor)|
-|bpm|Beats per minute|
-|popularity|The song's popularity|
-|happiness|The happiness that the song expresses|
-|danceability|Percentage indicating how suitable the song is for dancing|
-|energy|Perceived energy level of the song|
-|acousticness|Amount of acoustic sound in the song|
-|instrumentalness|Amount of instrumental content in the song|
-|liveness|Presence of live performance elements|
-|speechiness|Amount of spoken words in the song|
+|Column|Data type|Allow null|Description|
+|-|-|-|-|
+|id|Integer|No|Primary key, auto increment|
+|title|String|No||
+|releasedYear|Integer|Yes||
+|audio|String|Yes|Path to audio file of song|
+|image|String|Yes|Path to image file of song|
+|mode|String|Yes|Mode of the song (major or minor)|
+|bpm|Integer|Yes|Beats per minute|
+|popularity|Integer|Yes|The song's popularity|
+|happiness|Integer|Yes|The happiness that the song expresses|
+|danceability|Integer|Yes|Percentage indicating how suitable the song is for dancing|
+|energy|Integer|Yes|Perceived energy level of the song|
+|acousticness|Integer|Yes|Amount of acoustic sound in the song|
+|instrumentalness|Integer|Yes|Amount of instrumental content in the song|
+|liveness|Integer|Yes|Presence of live performance elements|
+|speechiness|Integer|Yes|Amount of spoken words in the song|
 
 #### Artists table
-|Column|Description|
-|-|-|
-|id|Primary key, auto increment|
-|fullname||
-|gender||
-|nationality||
-|image|Path to image file of artist|
+|Column|Data type|Allow null|Description|
+|-|-|-|-|
+|id|Integer|No|Primary key, auto increment|
+|fullname|String|No||
+|gender|Integer|No||
+|nationality|String|No||
+|image|String|Yes|Path to image file of artist|
 
 #### Genres table
-|Column|Description|
-|-|-|
-|id|Primary key, auto increment|
-|title||
+|Column|Data type|Allow null|Description|
+|-|-|-|-|
+|id|Integer|No|Primary key, auto increment|
+|title|String|No||
 
 #### Playlists table
-|Column|Description|
-|-|-|
-|id|Primary key, auto increment|
-|title||
-|description||
-|userId|foreign key references to Users(username)|
+|Column|Data type|Allow null|Description|
+|-|-|-|-|
+|id|Integer|No|Primary key, auto increment|
+|title|String|No||
+|description|String|Yes||
+|userId|Integer|No|Foreign key references to Users(id)|
 
 #### Songs_artists table (Songs - many to many - Artists)
-|Column|Description|
-|-|-|
-|songId|Primary key, foreign key references to Songs(id)|
-|artistId|Primary key, foreign key references to Artists(id)|
+|Column|Data type|Allow null|Description|
+|-|-|-|-|
+|songId|Integer|No|Primary key, foreign key references to Songs(id)|
+|artistId|Integer|No|Primary key, foreign key references to Artists(id)|
 
 #### Songs_genres table (Songs - many to many - Genres)
-|Column|Description|
-|-|-|
-|songId|Primary key, foreign key references to Songs(id)|
-|genresId|Primary key, foreign key references to Genres(id)|
+|Column|Data type|Allow null|Description|
+|-|-|-|-|
+|songId|Integer|No|Primary key, foreign key references to Songs(id)|
+|genreId|Integer|No|Primary key, foreign key references to Genres(id)|
 
 #### Favorites table (Users - many to many - Songs)
-|Column|Description|
-|-|-|
-|userId|Primary key, foreign key references to Users(username)|
-|songId|Primary key, foreign key references to Songs(id)|
-|createdAt||
-|updatedAt||
+|Column|Data type|Allow null|Description|
+|-|-|-|-|
+|userId|Integer|No|Primary key, foreign key references to Users(id)|
+|songId|Integer|No|Primary key, foreign key references to Songs(id)|
+|createdAt|Timestamp|No||
+|updatedAt|Timestamp|Yes||
 
 #### Playlists_songs table (Users - many to many - Songs)
-|Column|Description|
-|-|-|
-|playlistId|Primary key, foreign key references to Playlists(id)|
-|songId|Primary key, foreign key references to Songs(id)|
-|createdAt||
-|updatedAt||
+|Column|Data type|Allow null|Description|
+|-|-|-|-|
+|playlistId|Integer|No|Primary key, foreign key references to Playlists(id)|
+|songId|Integer|No|Primary key, foreign key references to Songs(id)|
+|createdAt|Timestamp|No||
+|updatedAt|Timestamp|Yes||
 
 # API reference
 ### Auth
@@ -288,7 +289,7 @@ Request
         "title": title,
         "description":description
     }
-Response:
+Response
     body: {
         "success": "playlist created successfully"
     }
@@ -306,7 +307,7 @@ Response
     body: {
         "success": "song is added to playlist successfully"
     }
-Or Response:
+Or Response
     body: {
         "error": "this song already exists in playlist"
     }
