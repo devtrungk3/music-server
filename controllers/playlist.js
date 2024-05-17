@@ -18,7 +18,7 @@ exports.getPlaylists = asyncHandler(async (req, res) => {
         attributes: ['id', 'title'],
         where: {
             title: {[Op.substring]: title},
-            userId: req.user.username
+            userId: req.user.id
         },
         limit: limit,
         offset: (page-1)*limit
@@ -27,7 +27,7 @@ exports.getPlaylists = asyncHandler(async (req, res) => {
     const count = await Playlist.count({
         where: {
             title: {[Op.substring]: title},
-            userId: req.user.username
+            userId: req.user.id
         },
     });
 
@@ -106,7 +106,7 @@ exports.createPlaylist = asyncHandler(async (req, res) => {
     delete req.body.id;
     const playlist = Playlist.build({
         ...req.body,
-        userId: req.user.username,
+        userId: req.user.id,
     });
     await playlist.save();
     res.json({ success: 'playlist created successfully' });
@@ -145,12 +145,12 @@ exports.updatePlaylistById = asyncHandler(async (req, res) => {
  */
 exports.deletePlaylistById = asyncHandler(async (req, res) => {
     const exists = await Playlist.count({
-        where: { id: req.params.id, userId: req.user.username }
+        where: { id: req.params.id, userId: req.user.id }
     });
     if (!exists) return res.status(400).json({ error: 'this playlist does not exists' });
 
     await Playlist.destroy({
-        where: { id: req.params.id, userId: req.user.username }
+        where: { id: req.params.id, userId: req.user.id }
     });
     res.json({ success: 'playlist deleted successfully' });
 });
@@ -160,7 +160,7 @@ exports.deletePlaylistById = asyncHandler(async (req, res) => {
  */
 exports.deletePLaylistSong = asyncHandler(async (req, res) => {
     const exists = await Playlist.count({
-        where: { id: req.params.id, userId: req.user.username },
+        where: { id: req.params.id, userId: req.user.id },
         include: {
             model: PlaylistSong,
             where: {
