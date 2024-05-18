@@ -55,7 +55,7 @@ exports.getGenreSongs = asyncHandler(async (req, res) => {
     if (!genre) return res.json(null);
     // get songs by genre
     const songs = await Song.findAll({
-        attributes: ['id', 'title'],
+        attributes: ['id', 'title', 'image'],
         limit: limit,
         offset: (page-1)*limit,
         include: {

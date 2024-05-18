@@ -8,7 +8,6 @@ db_password = ""
 
 df = pd.read_csv("D:/data.csv")
 
-
 try:
     connection = mysql.connector.connect(host=db_host, database=db_name, user=db_user, password=db_password)
     cursor = connection.cursor()
@@ -16,7 +15,7 @@ except mysql.connector.Error as err:
     print("Error connecting to database:", err)
     exit()
     
-table_name = "users"
+table_name = "songs"
 insert_query = f"INSERT INTO {table_name} {'(' + ','.join(df.columns) + ')'} VALUES ({'%s,'*(df.columns.size-1)}%s)"
 
 for row in df.values:

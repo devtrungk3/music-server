@@ -17,6 +17,7 @@ exports.getSongs = asyncHandler(async (req, res) => {
         where: {
             title: {[Op.substring]: title}
         },
+        attributes: ['id', 'title', 'image'],
         limit: limit,
         offset: (page-1)*limit
     });

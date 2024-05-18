@@ -53,7 +53,7 @@ exports.getArtistSongs = asyncHandler(async (req, res) => {
     const artist = await Artist.findByPk(req.params.id);
     if (!artist) return res.json(null);
     const songs = await Song.findAll({
-        attributes: ['id', 'title'],
+        attributes: ['id', 'title', 'image'],
         limit: limit,
         offset: (page-1)*limit,
         include: {
