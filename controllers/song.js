@@ -27,6 +27,24 @@ exports.getSongs = asyncHandler(async (req, res) => {
             title: {[Op.substring]: title}
         },
     });
+    // get artists of each song
+    const artistsPromises = songs.map(async (song) => {
+        const artists = await Artist.findAll({
+            attributes: ['id', 'fullname'],
+            include: {
+                model: Song,
+                attributes: [],
+                where: { id: song.id }
+            }
+        });
+        return artists;
+    });
+    const artistsData = await Promise.all(artistsPromises);
+
+    // map artistData to songs
+    songs.forEach((song, index) => {
+        song.dataValues.artists = artistsData[index];
+    });
     res.json({
         songs,
         page: page,
