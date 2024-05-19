@@ -73,6 +73,15 @@
 |createdAt|Timestamp|No||
 |updatedAt|Timestamp|Yes||
 
+#### Play_history table (Users - many to many - Songs)
+|Column|Data type|Allow null|Description|
+|-|-|-|-|
+|userId|Integer|No|Primary key, foreign key references to Users(id)|
+|songId|Integer|No|Primary key, foreign key references to Songs(id)|
+|playCount|Integer|No|Count the number of times user listen to a song|
+|createdAt|Timestamp|No||
+|updatedAt|Timestamp|Yes||
+
 #### Playlists_songs table (Users - many to many - Songs)
 |Column|Data type|Allow null|Description|
 |-|-|-|-|
@@ -95,10 +104,10 @@ Request
     }
 Response
     body: {
-        "accessToken": token,
+        "accessToken": user_access_token,
     }
     cookies: {
-        "refreshToken": token
+        "refreshToken": user_refresh_token
     }
 ```
 Signup
@@ -115,10 +124,10 @@ Request
     }
 Response
     body: {
-        "accessToken": token,
+        "accessToken": user_access_token,
     }
     cookies: {
-        "refreshToken": token
+        "refreshToken": user_refresh_token
     }
 ```
 Refresh token
@@ -127,13 +136,14 @@ GET /auth/refresh
 ```
 ```javascript
 Request
-    headers:
+    headers: {
         cookie: {
-            refreshToken=token
+            refreshToken=user_refresh_token
         }
+    }
 Response
     body: {
-        "accessToken": token,
+        "accessToken": user_access_token,
     }
 ```
 ### Song
@@ -272,8 +282,9 @@ GET /playlists
 ```
 ```javascript
 Request
-    headers: 
-        authorization: "Bearer token"
+    headers: {
+        "authorization": "Bearer {user_access_token}"
+    }
 ```
 Get playlist with songs in it
 ```http
@@ -285,6 +296,9 @@ POST /playlists
 ```
 ```javascript
 Request
+    headers: {
+        "authorization": "Bearer {user_access_token}"
+    }
     body: {
         "title": title,
         "description":description
@@ -300,6 +314,9 @@ POST /playlists/{id}
 ```
 ```javascript
 Request
+    headers: {
+        "authorization": "Bearer {user_access_token}"
+    }
     body: {
         "songId": songId,
     }
@@ -326,7 +343,41 @@ DELETE /playlists/{id}/song
 ```
 ```javascript
 Request
+    headers: {
+        "authorization": "Bearer {user_access_token}"
+    }
     body: {
         "songId": songId
+    }
+```
+### Play history
+Get history
+```http
+GET /history
+```
+```javascript
+Request
+    headers: {
+        "authorization": "Bearer {user_access_token}"
+    }
+Response
+    body: [
+            song1,
+            song2,
+            ...
+    ]
+```
+Add song into history
+```javascript
+Request
+    headers: {
+        "authorization": "Bearer {user_access_token}"
+    }
+    body: {
+        "songId": songId
+    }
+Response
+    body: {
+        "success": "message"
     }
 ```

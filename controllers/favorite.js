@@ -14,7 +14,7 @@ exports.getSongs = asyncHandler(async (req, res) => {
     const title = req.query.title || '';
 
     const songsData = await Song.findAll({
-        attributes: ['id', 'title'],
+        attributes: ['id', 'title', 'image'],
         where: {
             title: {[Op.substring]: title}
         },
@@ -50,7 +50,6 @@ exports.getSongs = asyncHandler(async (req, res) => {
     });
 
     const count = await Song.count({
-        attributes: ['id', 'title'],
         include: {
             model: Favorite,
             attributes: [],

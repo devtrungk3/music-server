@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2024 at 11:46 AM
+-- Generation Time: May 19, 2024 at 09:05 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -200,6 +200,20 @@ CREATE TABLE `playlists` (
 CREATE TABLE `playlists_songs` (
   `playlistId` int(11) NOT NULL,
   `songId` int(11) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `play_history`
+--
+
+CREATE TABLE `play_history` (
+  `userId` int(11) NOT NULL,
+  `songId` int(11) NOT NULL,
+  `playCount` int(11) NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `updatedAt` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -702,6 +716,13 @@ ALTER TABLE `playlists_songs`
   ADD KEY `songId` (`songId`);
 
 --
+-- Indexes for table `play_history`
+--
+ALTER TABLE `play_history`
+  ADD PRIMARY KEY (`userId`,`songId`),
+  ADD KEY `songId` (`songId`);
+
+--
 -- Indexes for table `songs`
 --
 ALTER TABLE `songs`
@@ -785,6 +806,13 @@ ALTER TABLE `playlists`
 ALTER TABLE `playlists_songs`
   ADD CONSTRAINT `playlists_songs_ibfk_1` FOREIGN KEY (`playlistId`) REFERENCES `playlists` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `playlists_songs_ibfk_2` FOREIGN KEY (`songId`) REFERENCES `songs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `play_history`
+--
+ALTER TABLE `play_history`
+  ADD CONSTRAINT `play_history_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `play_history_ibfk_2` FOREIGN KEY (`songId`) REFERENCES `songs` (`id`);
 
 --
 -- Constraints for table `songs_artists`

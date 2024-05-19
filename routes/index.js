@@ -9,6 +9,7 @@ const genreRouter = require('./genre');
 const songRouter = require('./song');
 const favoriteRouter = require('./favorite');
 const playlistRouter = require('./playlist');
+const playHistoryRouter = require('./playHistory');
 
 router.get('/helloworld', (req, res) => {
     res.json('hello world');
@@ -20,6 +21,7 @@ router.use('/genres', genreRouter);
 router.use('/songs', songRouter);
 router.use('/favorites', favoriteRouter);
 router.use('/playlists', playlistRouter);
+router.use('/history', playHistoryRouter);
 
 router.use(function(err, req, res, next) {
     console.log(err);
