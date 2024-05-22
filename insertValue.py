@@ -16,13 +16,45 @@ except mysql.connector.Error as err:
     print("Error connecting to database:", err)
     exit()
     
-# # add main table
-# table_name = "songs"
-# insert_query = f"INSERT INTO {table_name} {'(' + ','.join(df.columns) + ')'} VALUES ({'%s,'*(df.columns.size-1)}%s)"
+    
+query = f"SELECT id, title FROM genres"
+cursor.execute(query)
+df_genres = pd.DataFrame(cursor.fetchall(), columns=['id', 'title'])
+genres = {}
+for i in range(0, len(df_genres)):
+    genres[ df_genres['title'][i]] = df_genres['id'][i]
 
-# for row in df.values:
-#     cursor.execute(insert_query, tuple(row))
+attributes = ['rock viet','vietnamese bolero','indie viet','vietnamese trap','vietnamese hip hop','viet remix','viet lo-fi','v_pop','v_rap']
+
+df = pd.DataFrame(df[attributes], columns=attributes)
+
+for i in range(0, len(df)):
+    for j in attributes:
+        if (df[j][i] == 1):
+            query = f"INSERT INTO songs_genres VALUES ({i+1}, {genres[j]})"
+            cursor.execute(query)
+            connection.commit() 
+    
+# for i in range(0, len(df)):
+#     query = f"INSERT INTO songs_artists VALUES ({i+1}, {artists[df['artist_name'][i]]})"
+#     cursor.execute(query)
 #     connection.commit()
+# print("ok")
+
+
+# attributes = ['title', 'mode', 'bpm', 'popularity', 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'liveness', 'valence', 'releasedYear']
+
+# df = pd.DataFrame(df[attributes], columns=attributes)
+
+# attributes.insert(0, 'id')
+# # add main table
+# index = 1
+# for row in df.values:
+#     arr = (index, *row)
+#     insert_query = f"INSERT INTO songs {'(' + ','.join(attributes) + ')'} VALUES {arr}"
+#     cursor.execute(insert_query)
+#     connection.commit()
+#     index += 1
 # print("inserted successfully")
 
 # # add intermediate table in many to many relationship
