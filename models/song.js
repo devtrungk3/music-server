@@ -24,46 +24,45 @@ const Song = sequelize.define('Song', {
         allowNull: true,
     },
     mode: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: true,
     },
     bpm: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     popularity: {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
-    happiness: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
     danceability: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     energy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
-    acousticness: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    instrumentalness: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    liveness: {
-        type: DataTypes.INTEGER,
+    loudness: {
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     speechiness: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
-
+    acousticness: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+    },
+    liveness: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+    },
+    valence: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+    },
 }, {
     timestamps: false
 });

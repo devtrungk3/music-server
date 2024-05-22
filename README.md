@@ -19,23 +19,22 @@
 |releasedYear|Integer|Yes||
 |audio|String|Yes|Path to audio file of song|
 |image|String|Yes|Path to image file of song|
-|mode|String|Yes|Mode of the song (major or minor)|
-|bpm|Integer|Yes|Beats per minute|
+|mode|Integer|Yes|Mode of the song (1 - major or 0 - minor)|
+|bpm|Float|Yes|Beats per minute|
 |popularity|Integer|Yes|The song's popularity|
-|happiness|Integer|Yes|The happiness that the song expresses|
-|danceability|Integer|Yes|Percentage indicating how suitable the song is for dancing|
-|energy|Integer|Yes|Perceived energy level of the song|
-|acousticness|Integer|Yes|Amount of acoustic sound in the song|
-|instrumentalness|Integer|Yes|Amount of instrumental content in the song|
-|liveness|Integer|Yes|Presence of live performance elements|
-|speechiness|Integer|Yes|Amount of spoken words in the song|
+|danceability|Float|Yes|Percentage indicating how suitable the song is for dancing|
+|energy|Float|Yes|Perceived energy level of the song|
+|loudness|Float|Yes|Song volume in dB|
+|speechiness|Float|Yes|The level of lyrics of the song, the more lyrics, the higher the score|
+|acousticness|Float|Yes|Acoustic level of the song|
+|liveness|Float|Yes|Presence of live performance elements|
+|valence|Float|Yes|Positivity of the song|
 
 #### Artists table
 |Column|Data type|Allow null|Description|
 |-|-|-|-|
 |id|Integer|No|Primary key, auto increment|
 |fullname|String|No||
-|gender|Integer|No||
 |nationality|String|No||
 |image|String|Yes|Path to image file of artist|
 
