@@ -3,6 +3,7 @@ const router = express.Router();
 
 const loginRouter = require('./login');
 const signupRouter = require('./signup');
+const userRouter = require('./user');
 const refreshRouter = require('./refresh');
 const artistRouter = require('./artist');
 const genreRouter = require('./genre');
@@ -16,6 +17,7 @@ router.get('/helloworld', (req, res) => {
 });
 
 router.use('/auth', loginRouter, signupRouter, refreshRouter);
+router.use('/users', userRouter);
 router.use('/artists', artistRouter);
 router.use('/genres', genreRouter);
 router.use('/songs', songRouter);

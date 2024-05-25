@@ -145,6 +145,41 @@ Response
         "accessToken": user_access_token,
     }
 ```
+### User
+Get user information
+```http
+GET /users
+```
+```javascript
+Request
+    headers: {
+        "authorization": "Bearer {user_access_token}"
+    }
+Response
+    body: {
+        "username": username,
+        "email": email,
+        "fullname": fullname
+    }
+```
+Update user information
+```http
+PUT /users
+```
+```javascript
+Request
+    headers: {
+        "authorization": "Bearer {user_access_token}"
+    }
+    body {
+        "fullname": fullname,
+        ...
+    }
+Response
+    body: {
+        "success": message
+    }
+```
 ### Song
 Get all songs
 ```http

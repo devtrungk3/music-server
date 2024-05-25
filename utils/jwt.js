@@ -41,7 +41,6 @@ const renewAccessToken = (refreshToken) => {
                 resolve(generateAccessToken({
                     id: decoded.id,
                     username: decoded.username,
-                    email: decoded.email,
                     role: decoded.role
                 }));
             }

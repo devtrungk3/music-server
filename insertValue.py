@@ -7,7 +7,7 @@ db_name = "music_server"
 db_user = "root"
 db_password = ""
 
-df = pd.read_csv("D:/data.csv")
+df = pd.read_csv("C:/Users/HP/Desktop/ratings.csv")
 
 try:
     connection = mysql.connector.connect(host=db_host, database=db_name, user=db_user, password=db_password)
@@ -17,23 +17,23 @@ except mysql.connector.Error as err:
     exit()
     
     
-query = f"SELECT id, title FROM genres"
-cursor.execute(query)
-df_genres = pd.DataFrame(cursor.fetchall(), columns=['id', 'title'])
-genres = {}
-for i in range(0, len(df_genres)):
-    genres[ df_genres['title'][i]] = df_genres['id'][i]
+# query = f"SELECT id, title FROM genres"
+# cursor.execute(query)
+# df_genres = pd.DataFrame(cursor.fetchall(), columns=['id', 'title'])
+# genres = {}
+# for i in range(0, len(df_genres)):
+#     genres[ df_genres['title'][i]] = df_genres['id'][i]
 
-attributes = ['rock viet','vietnamese bolero','indie viet','vietnamese trap','vietnamese hip hop','viet remix','viet lo-fi','v_pop','v_rap']
+# attributes = ['rock viet','vietnamese bolero','indie viet','vietnamese trap','vietnamese hip hop','viet remix','viet lo-fi','v_pop','v_rap']
 
-df = pd.DataFrame(df[attributes], columns=attributes)
+# df = pd.DataFrame(df[attributes], columns=attributes)
 
-for i in range(0, len(df)):
-    for j in attributes:
-        if (df[j][i] == 1):
-            query = f"INSERT INTO songs_genres VALUES ({i+1}, {genres[j]})"
-            cursor.execute(query)
-            connection.commit() 
+# for i in range(0, len(df)):
+#     for j in attributes:
+#         if (df[j][i] == 1):
+#             query = f"INSERT INTO songs_genres VALUES ({i+1}, {genres[j]})"
+#             cursor.execute(query)
+#             connection.commit() 
     
 # for i in range(0, len(df)):
 #     query = f"INSERT INTO songs_artists VALUES ({i+1}, {artists[df['artist_name'][i]]})"
@@ -89,13 +89,13 @@ for i in range(0, len(df)):
   
 # delay_time = 100    # 1 minute
 # for userId in userIds:
-#     for i in range (0, random.randint(50, 100)):
+#     for i in range (0, random.randint(50, 200)):
 #         songId = random.choice(songIds)
 #         playCount = random.randint(1,30)
 #         insert_query = f"INSERT INTO play_history (userId, songId, playCount, createdAt) VALUES (%s, %s, 1, '2024-01-01 23:59:00') ON DUPLICATE KEY UPDATE playCount = {random.randint(2,15)}, updatedAt = current_timestamp()-{delay_time}"
 #         cursor.execute(insert_query, tuple([userId, songId]))
 #         connection.commit()
-#         delay_time += 100
+#         delay_time += 1000
 
 if connection:
     cursor.close()

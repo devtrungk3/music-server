@@ -30,7 +30,7 @@ const userSignupController = asyncHandler(async (req, res) => {
 
     const user = await User.findOne({
         where: { username },
-        attributes: ['id','username', 'email', 'role'],
+        attributes: ['id', 'username', 'role'],
     });
 
     /**
@@ -39,13 +39,11 @@ const userSignupController = asyncHandler(async (req, res) => {
     const accessToken = jwtUtil.generateAccessToken({
         id: user.id,
         username: user.username,
-        email: user.email,
         role: user.role
     });
     const refreshToken = jwtUtil.generateRefreshToken({
         id: user.id,
         username: user.username,
-        email: user.email,
         role: user.role    
     });
     
